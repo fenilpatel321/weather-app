@@ -18,14 +18,38 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
   color: var(--text);
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  transition: background 0.8s ease-in-out;
 }
+
+body.theme-default { background: linear-gradient(135deg, var(--bg-start), var(--bg-end)); }
+body.theme-clear-day { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
+body.theme-clear-night { background: linear-gradient(135deg, #0f172a, #1e3a8a); }
+body.theme-cloudy-day { background: linear-gradient(135deg, #64748b, #94a3b8); }
+body.theme-cloudy-night { background: linear-gradient(135deg, #1e293b, #334155); }
+body.theme-rainy { background: linear-gradient(135deg, #312e81, #4338ca); }
+body.theme-snowy { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); color: #0f172a; }
+body.theme-stormy { background: linear-gradient(135deg, #1e1b4b, #312e81); }
+
+/* Update glass panel for snowy theme text contrast */
+body.theme-snowy .glass-panel,
+body.theme-snowy .section-container,
+body.theme-snowy .detail-card,
+body.theme-snowy .search-input,
+body.theme-snowy .location-button {
+  background: rgba(255, 255, 255, 0.4);
+  color: #0f172a;
+  border-color: rgba(255,255,255,0.6);
+}
+body.theme-snowy .text-muted, body.theme-snowy .weather-desc, body.theme-snowy .feels-like, body.theme-snowy .detail-label, body.theme-snowy .hourly-time, body.theme-snowy .temp-min, body.theme-snowy .section-title {
+  color: #475569;
+}
+
 
 /* Scrollbar hiding for webkit */
 ::-webkit-scrollbar {
@@ -62,10 +86,53 @@ body {
   animation: spin 1s linear infinite;
 }
 
+/* Skeleton Shimmer */
+.skeleton-shimmer {
+  background: rgba(255, 255, 255, 0.1);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Unit Toggle */
+.unit-toggle {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--surface-border);
+  color: var(--text);
+  border-radius: 2rem;
+  padding: 0.4rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.unit-toggle:hover {
+  background: var(--surface-hover);
+  color: var(--primary);
+}
+
+body.theme-snowy .unit-toggle {
+  color: #0f172a;
+  border-color: rgba(255,255,255,0.6);
+}
+
+
 /* App Container */
 .app-container {
   width: 100%;
-  max-width: 420px; /* Mobile width */
+  max-width: 420px; /* Mobile width default */
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -73,7 +140,58 @@ body {
   max-height: 95vh;
   overflow-y: auto;
   scrollbar-width: none;
+  transition: all 0.3s ease;
 }
+
+/* Desktop Layout Enhancements */
+@media (min-width: 800px) {
+  .app-container {
+    max-width: 1000px;
+    padding: 2.5rem;
+  }
+
+  .weather-content {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .current-weather {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--surface-border);
+    border-radius: 1.5rem;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  .weather-content > :nth-child(2) { /* Hourly */
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .weather-content > :nth-child(3) { /* Daily */
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .weather-content > :nth-child(4) { /* Details */
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  /* Make details grid 3 columns on desktop */
+  .details-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 
 /* Search Header */
 .search-header {
