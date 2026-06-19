@@ -1,13 +1,13 @@
 :root {
-  --primary: #6366f1;
+  --primary: #8b5cf6; /* Vibrant violet */
   --bg-start: #0f172a;
-  --bg-end: #1e1b4b;
-  --surface: rgba(255, 255, 255, 0.05);
-  --surface-border: rgba(255, 255, 255, 0.1);
-  --surface-hover: rgba(255, 255, 255, 0.1);
-  --text: #f8fafc;
-  --text-muted: #94a3b8;
-  --error: #ef4444;
+  --bg-end: #312e81; /* Deeper purple end */
+  --surface: rgba(255, 255, 255, 0.08);
+  --surface-border: rgba(255, 255, 255, 0.15);
+  --surface-hover: rgba(255, 255, 255, 0.2);
+  --text: #ffffff;
+  --text-muted: #cbd5e1;
+  --error: #f43f5e;
 }
 
 * {
@@ -27,14 +27,14 @@ body {
   transition: background 0.8s ease-in-out;
 }
 
-body.theme-default { background: linear-gradient(135deg, var(--bg-start), var(--bg-end)); }
-body.theme-clear-day { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
-body.theme-clear-night { background: linear-gradient(135deg, #0f172a, #1e3a8a); }
-body.theme-cloudy-day { background: linear-gradient(135deg, #64748b, #94a3b8); }
-body.theme-cloudy-night { background: linear-gradient(135deg, #1e293b, #334155); }
-body.theme-rainy { background: linear-gradient(135deg, #312e81, #4338ca); }
-body.theme-snowy { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); color: #0f172a; }
-body.theme-stormy { background: linear-gradient(135deg, #1e1b4b, #312e81); }
+body.theme-default { background: linear-gradient(135deg, var(--bg-start), var(--bg-end), #1e1b4b); }
+body.theme-clear-day { background: linear-gradient(135deg, #0ea5e9, #2563eb, #1e40af); }
+body.theme-clear-night { background: linear-gradient(135deg, #020617, #0f172a, #1e3a8a); }
+body.theme-cloudy-day { background: linear-gradient(135deg, #475569, #64748b, #94a3b8); }
+body.theme-cloudy-night { background: linear-gradient(135deg, #0f172a, #1e293b, #334155); }
+body.theme-rainy { background: linear-gradient(135deg, #1e1b4b, #312e81, #4338ca); }
+body.theme-snowy { background: linear-gradient(135deg, #cbd5e1, #e2e8f0, #f8fafc); color: #0f172a; }
+body.theme-stormy { background: linear-gradient(135deg, #09090b, #1e1b4b, #312e81); }
 
 /* Update glass panel for snowy theme text contrast */
 body.theme-snowy .glass-panel,
@@ -59,11 +59,11 @@ body.theme-snowy .text-muted, body.theme-snowy .weather-desc, body.theme-snowy .
 /* Glassmorphism styling */
 .glass-panel {
   background: var(--surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--surface-border);
-  border-radius: 2rem; /* More rounded like a phone */
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border-radius: 2rem;
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
 
